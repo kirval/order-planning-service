@@ -1,0 +1,6 @@
+rootProject.name = "order-planning-service"
+
+include "configuration"
+include "adapter:web"
+include "adapter:persistence"
+include "application"

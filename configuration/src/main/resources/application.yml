@@ -1,0 +1,42 @@
+app:
+  db:
+    host: ${OP_HOST:localhost}
+    port: ${OP_PORT:5432}
+    name: ${OP_DB:order-planning-db}
+    current-schema: ${OP_SCHEMA:public}
+    user: ${OP_USER:postgres}
+    password: ${OP_PASSWORD:postgres}
+
+spring:
+  #
+  # DATASOURCE CONFIG
+  #
+  datasource:
+    url: jdbc:postgresql://${app.db.host}:${app.db.port}/${app.db.name}?currentSchema=${app.db.current-schema}
+    driver-class-name: org.postgresql.Driver
+    username: ${app.db.user}
+    password: ${app.db.password}
+
+  #
+  # FLYWAY CONFIG
+  #
+  flyway:
+    enabled: true
+    url: jdbc:postgresql://${app.db.host}:${app.db.port}/${app.db.name}
+    schemas: ${app.db.current-schema}
+    default-schema: ${app.db.current-schema}
+    user: ${app.db.user}
+    password: ${app.db.password}
+
+  #
+  # HIBERNATE CONFIG
+  #
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        naming:
+          physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+        #        show_sql: true
+        #        format_sql: true
+        default_schema: ${spring.datasource.sm.currentSchema}

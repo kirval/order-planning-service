@@ -1,0 +1,42 @@
+version: '3'
+
+services:
+  order-planning-db:
+    container_name: order-planning-db
+    image: postgres:13-alpine
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=order-planning-db
+    volumes:
+      - order-planning-db-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - order-planning
+
+#  smart-menu-ws:
+#    container_name: smart-menu-ws
+#    restart: unless-stopped
+#    build:
+#      context: ./ws
+#    environment:
+#      - SM_HOST=smart-menu-db
+#      - SM_PORT=5432
+#      - SM_DB=smart-menu-db
+#      - SM_SCHEMA=public
+#      - SM_USER=postgres
+#      - SM_PASSWORD=postgres
+#    depends_on:
+#      - smart-menu-db
+#    ports:
+#      - "8080:8080"
+#    networks:
+#      - sm
+
+networks:
+  order-planning:
+    driver: bridge
+volumes:
+  order-planning-db-data:
