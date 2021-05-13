@@ -25,7 +25,7 @@ public class CustomerController {
     @PostMapping
     public ResponseEntity<CustomerDtoOut> addNewCustomer(@Valid @RequestBody CustomerDtoIn dto) {
         try {
-            Customer addedCustomer = addNewCustomerUseCase.addNewCustomerUseCase(mapper.webDtoToUseCaseDto(dto));
+            Customer addedCustomer = addNewCustomerUseCase.addNewCustomer(mapper.webDtoToUseCaseDto(dto));
             return new ResponseEntity<>(mapper.domainToWebDto(addedCustomer), HttpStatus.CREATED);
 
         } catch (Exception e) {

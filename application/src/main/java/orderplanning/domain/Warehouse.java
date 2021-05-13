@@ -8,9 +8,9 @@ import java.util.Set;
 public class Warehouse {
 
     private Long id;
-    private Long name;
-    private Float latitude;
-    private Float longitude;
+    private String name;
+    private Integer coordinateX;
+    private Integer coordinateY;
 
     /**
      * Products in stock

@@ -4,6 +4,6 @@ import orderplanning.domain.Order;
 
 public interface OrderPersistencePort {
 
-    Order persistOrder(Order order, Long customerId);
+    Order persistOrder(Order order, Long customerId, Long warehouseId);
 
 }

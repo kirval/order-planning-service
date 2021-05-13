@@ -1,11 +1,11 @@
-package orderplanning.application.port.in;
+package orderplanning.adapter.web.dto;
 
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
 
 @Data
-public class PlaceOrderUseCaseDto {
+public class OrderDtoIn {
 
     @NotNull
     private Long customerId;

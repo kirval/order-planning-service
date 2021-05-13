@@ -1,39 +1,29 @@
 package orderplanning.adapter.persistence;
 
 import orderplanning.domain.Customer;
-import org.mapstruct.*;
-
-import static orderplanning.adapter.persistence.OrderJpaMapper.JPA_ENTITY_TO_ORDER_DOMAIN_ENTITY_FULL;
-import static orderplanning.adapter.persistence.OrderJpaMapper.ORDER_DOMAIN_ENTITY_TO_JPA_ENTITY_PLAIN;
-
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.Named;
 
 @Mapper(uses = {
         OrderJpaMapper.class
 })
 interface CustomerJpaMapper {
     /**
-     * DOMAIN TO JPA
+     * DOMAIN ENTITY TO JPA ENTITY
      */
-    String CUSTOMER_DOMAIN_ENTITY_TO_JPA_ENTITY_FULL = "CUSTOMER_DOMAIN_ENTITY_TO_JPA_ENTITY_FULL";
+    String CUSTOMER_DOMAIN_ENTITY_TO_JPA_ENTITY = "CUSTOMER_DOMAIN_ENTITY_TO_JPA_ENTITY";
 
-    @Named(CUSTOMER_DOMAIN_ENTITY_TO_JPA_ENTITY_FULL)
-    @Mapping(target = "order", qualifiedByName = ORDER_DOMAIN_ENTITY_TO_JPA_ENTITY_PLAIN)
-    CustomerJpaEntity domainEntityToJpaEntityFull(Customer domainEntity);
-
-    @AfterMapping
-    default void restoreBidirectionalRelations(@MappingTarget CustomerJpaEntity parent) {
-        if (parent.getOrder() != null) {
-            parent.getOrder().setCustomer(parent);
-        }
-    }
+    @Named(CUSTOMER_DOMAIN_ENTITY_TO_JPA_ENTITY)
+    CustomerJpaEntity domainEntityToJpaEntity(Customer domainEntity);
 
     /**
      * JPA ENTITY TO DOMAIN ENTITY
      */
-    String JPA_ENTITY_TO_CUSTOMER_DOMAIN_ENTITY_FULL = "JPA_ENTITY_TO_CUSTOMER_DOMAIN_ENTITY_FULL";
+    String CUSTOMER_JPA_ENTITY_TO_DOMAIN_ENTITY_PLAIN = "CUSTOMER_JPA_ENTITY_TO_DOMAIN_ENTITY_PLAIN";
 
-    @Named(JPA_ENTITY_TO_CUSTOMER_DOMAIN_ENTITY_FULL)
-    @Mapping(target = "order", qualifiedByName = JPA_ENTITY_TO_ORDER_DOMAIN_ENTITY_FULL)
-    Customer jpaEntityToDomainEntityFull(CustomerJpaEntity jpaEntity);
+    @Named(CUSTOMER_JPA_ENTITY_TO_DOMAIN_ENTITY_PLAIN)
+    @Mapping(target = "order", ignore = true)
+    Customer jpaEntityToDomainEntityPlain(CustomerJpaEntity jpaEntity);
 
 }

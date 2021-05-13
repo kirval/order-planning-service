@@ -1,14 +1,12 @@
 package orderplanning.adapter.persistence;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
 
 import javax.persistence.*;
 
 @Data
 @Entity
-@Table(name = "order")
+@Table(name = "orders")
 class OrderJpaEntity {
 
     @Id
@@ -17,10 +15,16 @@ class OrderJpaEntity {
     @Column(name = "id", updatable = false, nullable = false)
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "product_id")
+    private ProductJpaEntity product;
+
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "customer_id")
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
     private CustomerJpaEntity customer;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "warehouse_id")
+    private WarehouseJpaEntity warehouse;
 
 }

@@ -6,6 +6,6 @@ import javax.validation.Valid;
 
 public interface AddNewCustomerUseCase {
 
-    Customer addNewCustomerUseCase(@Valid AddNewCustomerUseCaseDto newCustomer);
+    Customer addNewCustomer(@Valid AddNewCustomerUseCaseDto newCustomer);
 
 }

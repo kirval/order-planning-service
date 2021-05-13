@@ -19,7 +19,7 @@ class CustomerService implements AddNewCustomerUseCase {
     private final CustomerMapper customerMapper;
 
     @Override
-    public Customer addNewCustomerUseCase(@Valid AddNewCustomerUseCaseDto newCustomerDto) {
+    public Customer addNewCustomer(@Valid AddNewCustomerUseCaseDto newCustomerDto) {
         return customerPersistencePort.persistCustomer(customerMapper.useCaseDtoToDomainEntity(newCustomerDto));
     }
 

@@ -4,6 +4,6 @@ import javax.validation.Valid;
 
 public interface PlaceOrderUseCase {
 
-    void placeOrderUseCase(@Valid PlaceOrderUseCaseDto order);
+    PlaceOrderUseCaseDtoOut placeOrder(@Valid PlaceOrderUseCaseDtoIn placeOrderDto);
 
 }

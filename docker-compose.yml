@@ -9,8 +9,6 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=order-planning-db
-    volumes:
-      - order-planning-db-data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
     networks:
@@ -38,5 +36,3 @@ services:
 networks:
   order-planning:
     driver: bridge
-volumes:
-  order-planning-db-data:

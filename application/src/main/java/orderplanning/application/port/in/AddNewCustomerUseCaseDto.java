@@ -12,9 +12,9 @@ public class AddNewCustomerUseCaseDto {
     private String name;
 
     @NotNull
-    private Float latitude;
+    private Integer coordinateX;
 
     @NotNull
-    private Float longitude;
+    private Integer coordinateY;
 
 }
