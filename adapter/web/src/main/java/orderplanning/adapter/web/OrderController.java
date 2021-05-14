@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import orderplanning.adapter.web.dto.OrderDtoIn;
 import orderplanning.adapter.web.dto.OrderDtoOut;
 import orderplanning.application.port.in.PlaceOrderUseCase;
-import orderplanning.application.port.in.PlaceOrderUseCaseDtoOut;
+import orderplanning.application.port.in.PlaceOrderUseCase.PlaceOrderUseCaseDtoOut;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,8 +24,12 @@ public class OrderController {
 
     @PostMapping
     public ResponseEntity<OrderDtoOut> placeOrder(@Valid @RequestBody OrderDtoIn dto) {
-        PlaceOrderUseCaseDtoOut placedOrder = placeOrderUseCase.placeOrder(mapper.webDtoToUseCaseDto(dto));
-        return new ResponseEntity<>(mapper.useCaseDtoToWebDto(placedOrder), HttpStatus.CREATED);
+        try {
+            PlaceOrderUseCaseDtoOut placedOrder = placeOrderUseCase.placeOrder(mapper.webDtoToUseCaseDto(dto));
+            return new ResponseEntity<>(mapper.useCaseDtoToWebDto(placedOrder), HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity("Failed to place order. Please try again later.", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
 }

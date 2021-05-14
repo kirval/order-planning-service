@@ -26,10 +26,9 @@ public class CustomerController {
     public ResponseEntity<CustomerDtoOut> addNewCustomer(@Valid @RequestBody CustomerDtoIn dto) {
         try {
             Customer addedCustomer = addNewCustomerUseCase.addNewCustomer(mapper.webDtoToUseCaseDto(dto));
-            return new ResponseEntity<>(mapper.domainToWebDto(addedCustomer), HttpStatus.CREATED);
-
+            return new ResponseEntity<>(mapper.domainEntityToWebDto(addedCustomer), HttpStatus.CREATED);
         } catch (Exception e) {
-            return new ResponseEntity(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity("Failed to add customer. Please try again later.", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

@@ -1,0 +1,32 @@
+spring:
+  #
+  # DATASOURCE CONFIG
+  #
+  datasource:
+    driver-class-name: org.postgresql.Driver
+
+  #
+  # FLYWAY CONFIG
+  #
+  flyway:
+    enabled: true
+
+  #
+  # HIBERNATE CONFIG
+  #
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        naming:
+          physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+        show_sql: true
+        format_sql: true
+    hibernate:
+      ddl-auto: none
+
+logging:
+  level:
+    org:
+      hibernate:
+        type: trace #show real SQL values in console

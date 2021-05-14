@@ -14,11 +14,11 @@ class WarehousePersistenceAdapter implements WarehouseQueryPort {
     private final WarehouseJpaRepository repository;
     private final WarehouseJpaMapper mapper;
 
-
     @Override
     public List<Warehouse> findWarehousesContainingProduct(Long productId) {
-        return mapper.jpaToDomainPlain(
+        return mapper.jpaEntityToDomainEntityPlain(
                 repository.findAll(WarehouseJpaSpecifications.findByContainingProduct(productId))
         );
     }
+
 }

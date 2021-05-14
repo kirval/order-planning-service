@@ -14,8 +14,7 @@ class OrderPersistenceAdapter implements OrderPersistencePort {
 
     @Override
     public Order persistOrder(Order order, Long customerId, Long warehouseId) {
-
-        return mapper.jpaToDomain(
+        return mapper.jpaEntityToDomainEntity(
                 repository.save(mapper.domainEntityToJpaEntity(order, customerId, warehouseId))
         );
     }

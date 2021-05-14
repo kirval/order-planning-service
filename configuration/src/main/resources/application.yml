@@ -37,6 +37,6 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         naming:
           physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-        show_sql: true
-        format_sql: true
+        #        show_sql: true
+        #        format_sql: true
         default_schema: ${spring.datasource.sm.currentSchema}

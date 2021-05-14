@@ -16,6 +16,6 @@ interface OrderJpaMapper {
     @Mapping(target = "warehouse.id", source = "warehouseId")
     OrderJpaEntity domainEntityToJpaEntity(Order domainEntity, Long customerId, Long warehouseId);
 
-    Order jpaToDomain(OrderJpaEntity jpaEntity);
+    Order jpaEntityToDomainEntity(OrderJpaEntity jpaEntity);
 
 }

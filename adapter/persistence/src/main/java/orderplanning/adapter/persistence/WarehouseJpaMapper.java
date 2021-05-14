@@ -16,9 +16,9 @@ interface WarehouseJpaMapper {
     @Named(WAREHOUSE_JPA_ENTITY_TO_DOMAIN_ENTITY_PLAIN)
     @Mapping(target = "products", ignore = true)
     @Mapping(target = "orders", ignore = true)
-    Warehouse jpaToDomainPlain(WarehouseJpaEntity jpaEntity);
+    Warehouse jpaEntityToDomainEntityPlain(WarehouseJpaEntity jpaEntity);
 
     @IterableMapping(qualifiedByName = WAREHOUSE_JPA_ENTITY_TO_DOMAIN_ENTITY_PLAIN)
-    List<Warehouse> jpaToDomainPlain(List<WarehouseJpaEntity> jpaEntityList);
+    List<Warehouse> jpaEntityToDomainEntityPlain(List<WarehouseJpaEntity> jpaEntityList);
 
 }
