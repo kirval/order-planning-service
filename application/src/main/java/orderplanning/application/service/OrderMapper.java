@@ -7,7 +7,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 @Mapper
-public interface OrderMapper {
+interface OrderMapper {
 
     @Mapping(target = "orderId", source = "order.id")
     @Mapping(target = "warehouseId", source = "warehouse.id")
