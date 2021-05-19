@@ -1,19 +1,16 @@
 app:
   db:
-    host: ${OP_HOST:localhost}
-    port: ${OP_PORT:5432}
     name: ${OP_DB:order-planning-db}
-    current-schema: ${OP_SCHEMA:public}
-    user: ${OP_USER:postgres}
-    password: ${OP_PASSWORD:postgres}
+    user: ${OP_USER:sa}
+    password: ${OP_PASSWORD:}
 
 spring:
   #
   # DATASOURCE CONFIG
   #
   datasource:
-    url: jdbc:postgresql://${app.db.host}:${app.db.port}/${app.db.name}?currentSchema=${app.db.current-schema}
-    driver-class-name: org.postgresql.Driver
+    url: jdbc:h2:mem:${app.db.name};DB_CLOSE_DELAY=-1
+    driver-class-name: org.h2.Driver
     username: ${app.db.user}
     password: ${app.db.password}
 
@@ -22,21 +19,12 @@ spring:
   #
   flyway:
     enabled: true
-    url: jdbc:postgresql://${app.db.host}:${app.db.port}/${app.db.name}
-    schemas: ${app.db.current-schema}
-    default-schema: ${app.db.current-schema}
-    user: ${app.db.user}
-    password: ${app.db.password}
 
   #
   # HIBERNATE CONFIG
   #
   jpa:
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
-        naming:
-          physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-        #        show_sql: true
-        #        format_sql: true
-        default_schema: ${spring.datasource.sm.currentSchema}
+    database: h2
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: none

@@ -3,7 +3,7 @@ spring:
   # DATASOURCE CONFIG
   #
   datasource:
-    driver-class-name: org.postgresql.Driver
+    driver-class-name: org.h2.Driver
 
   #
   # FLYWAY CONFIG
@@ -15,11 +15,10 @@ spring:
   # HIBERNATE CONFIG
   #
   jpa:
+    database: h2
+    database-platform: org.hibernate.dialect.H2Dialect
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
-        naming:
-          physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
         show_sql: true
         format_sql: true
     hibernate:

@@ -6,9 +6,8 @@ dependencies {
 
     //TEST DEPENDENCIES
     testImplementation("org.flywaydb:flyway-core")
-    testImplementation("org.testcontainers:junit-jupiter:1.15.3")
-    testImplementation("org.testcontainers:postgresql:1.15.3")
-    testImplementation("org.postgresql:postgresql")
+    testImplementation("com.h2database:h2")
+
 }
 
 
