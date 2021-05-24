@@ -3,11 +3,10 @@ dependencies {
     implementation project(":common")
 
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-    implementation("org.postgresql:postgresql")
 
     //TEST DEPENDENCIES
     testImplementation("org.flywaydb:flyway-core")
-    testImplementation("com.h2database:h2")
+    testRuntimeOnly("com.h2database:h2")
 
 }
 
