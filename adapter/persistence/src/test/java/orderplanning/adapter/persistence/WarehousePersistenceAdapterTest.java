@@ -21,7 +21,12 @@ class WarehousePersistenceAdapterTest {
     @Test
     @Sql("WarehousePersistenceAdapterTest.sql")
     void testFindWarehousesContainingProduct() {
-        List<Warehouse> warehouses = warehousePersistenceAdapter.findWarehousesContainingProduct(1L);
+        List<Warehouse> warehouses = null;
+        try {
+            warehouses = warehousePersistenceAdapter.findWarehousesContainingProduct(1L);
+        } catch (orderplanning.common.exception.QueryException e) {
+            e.printStackTrace();
+        }
 
         assertThat(warehouses).hasSize(1);
         assertThat(warehouses.get(0).getId()).isEqualTo(1L);

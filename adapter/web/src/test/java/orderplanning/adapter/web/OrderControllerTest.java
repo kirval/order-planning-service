@@ -2,9 +2,10 @@ package orderplanning.adapter.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import orderplanning.adapter.web.dto.OrderDtoOut;
-import orderplanning.application.port.in.PlaceOrderUseCase;
-import orderplanning.application.port.in.PlaceOrderUseCase.PlaceOrderUseCaseDtoIn;
-import orderplanning.application.port.in.PlaceOrderUseCase.PlaceOrderUseCaseDtoOut;
+import orderplanning.application.port.input.PlaceOrderUseCase;
+import orderplanning.application.port.input.PlaceOrderUseCase.PlaceOrderUseCaseDtoIn;
+import orderplanning.application.port.input.PlaceOrderUseCase.PlaceOrderUseCaseDtoOut;
+import orderplanning.common.exception.EntityManagementException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -59,7 +60,11 @@ class OrderControllerTest {
                 .setWarehouseName("WH1")
                 .setDistance(1.0);
 
-        verify(placeOrderUseCase, times(1)).placeOrder(any(PlaceOrderUseCaseDtoIn.class));
+        try {
+            verify(placeOrderUseCase, times(1)).placeOrder(any(PlaceOrderUseCaseDtoIn.class));
+        } catch (EntityManagementException e) {
+            e.printStackTrace();
+        }
         assertThat(actualDtoOut).isEqualToIgnoringWhitespace(objectMapper.writeValueAsString(expectedDtoOut));
     }
 

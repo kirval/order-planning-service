@@ -1,7 +1,7 @@
-package orderplanning.application.port.in;
+package orderplanning.application.port.input;
 
 import lombok.Data;
-import orderplanning.application.service.AddingCustomerException;
+import orderplanning.common.exception.EntityManagementException;
 import orderplanning.domain.Customer;
 
 import javax.validation.Valid;
@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 
 public interface AddNewCustomerUseCase {
 
-    Customer addNewCustomer(@Valid AddNewCustomerUseCaseDto newCustomer) throws AddingCustomerException;
+    Customer addNewCustomer(@Valid AddNewCustomerUseCaseDto newCustomer) throws EntityManagementException;
 
     @Data
     class AddNewCustomerUseCaseDto {

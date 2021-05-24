@@ -1,11 +1,12 @@
 package orderplanning.application.service;
 
-import orderplanning.application.port.in.PlaceOrderUseCase;
-import orderplanning.application.port.in.PlaceOrderUseCase.PlaceOrderUseCaseDtoIn;
-import orderplanning.application.port.in.PlaceOrderUseCase.PlaceOrderUseCaseDtoOut;
-import orderplanning.application.port.out.CustomerQueryPort;
-import orderplanning.application.port.out.OrderPersistencePort;
-import orderplanning.application.port.out.WarehouseQueryPort;
+import orderplanning.application.port.input.PlaceOrderUseCase;
+import orderplanning.application.port.input.PlaceOrderUseCase.PlaceOrderUseCaseDtoIn;
+import orderplanning.application.port.input.PlaceOrderUseCase.PlaceOrderUseCaseDtoOut;
+import orderplanning.application.port.output.CustomerQueryPort;
+import orderplanning.application.port.output.OrderPersistencePort;
+import orderplanning.application.port.output.WarehouseQueryPort;
+import orderplanning.common.exception.EntityManagementException;
 import orderplanning.domain.Customer;
 import orderplanning.domain.Order;
 import orderplanning.domain.Product;
@@ -41,28 +42,40 @@ class PlaceOrderUseCaseTest {
     }
 
     @Test
-    void testPlaceOrder() throws OrderPlacingException {
-        when(warehouseQueryPort.findWarehousesContainingProduct(anyLong())).thenReturn(
-                Collections.singletonList(new Warehouse()
-                        .setId(1L)
-                        .setName("WH1")
+    void testPlaceOrder() throws EntityManagementException {
+        try {
+            when(warehouseQueryPort.findWarehousesContainingProduct(anyLong())).thenReturn(
+                    Collections.singletonList(new Warehouse()
+                            .setId(1L)
+                            .setName("WH1")
+                            .setCoordinateX(1)
+                            .setCoordinateY(1))
+            );
+        } catch (orderplanning.common.exception.QueryException e) {
+            e.printStackTrace();
+        }
+        try {
+            when(customerQueryPort.findById(anyLong())).thenAnswer(invocation -> {
+                Long id = invocation.getArgument(0);
+                return new Customer()
+                        .setId(id)
+                        .setName("C1")
                         .setCoordinateX(1)
-                        .setCoordinateY(1))
-        );
-        when(customerQueryPort.findById(anyLong())).thenAnswer(invocation -> {
-            Long id = invocation.getArgument(0);
-            return new Customer()
-                    .setId(id)
-                    .setName("C1")
-                    .setCoordinateX(1)
-                    .setCoordinateY(1);
-        });
-        when(orderPersistencePort.persistOrder(any(Order.class), anyLong(), anyLong())).thenAnswer(invocation -> {
-            Order order = invocation.getArgument(0);
-            return new Order()
-                    .setId(1L)
-                    .setProduct(new Product().setId(order.getProduct().getId()));
-        });
+                        .setCoordinateY(1);
+            });
+        } catch (orderplanning.common.exception.QueryException e) {
+            e.printStackTrace();
+        }
+        try {
+            when(orderPersistencePort.persistOrder(any(Order.class), anyLong(), anyLong())).thenAnswer(invocation -> {
+                Order order = invocation.getArgument(0);
+                return new Order()
+                        .setId(1L)
+                        .setProduct(new Product().setId(order.getProduct().getId()));
+            });
+        } catch (orderplanning.common.exception.PersistenceException e) {
+            e.printStackTrace();
+        }
         PlaceOrderUseCaseDtoIn orderToPlace = new PlaceOrderUseCaseDtoIn()
                 .setCustomerId(1L)
                 .setProductId(1L);

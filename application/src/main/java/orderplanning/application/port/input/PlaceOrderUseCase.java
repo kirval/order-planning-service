@@ -1,14 +1,14 @@
-package orderplanning.application.port.in;
+package orderplanning.application.port.input;
 
 import lombok.Data;
-import orderplanning.application.service.OrderPlacingException;
+import orderplanning.common.exception.EntityManagementException;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 public interface PlaceOrderUseCase {
 
-    PlaceOrderUseCaseDtoOut placeOrder(@Valid PlaceOrderUseCaseDtoIn placeOrderDto) throws OrderPlacingException;
+    PlaceOrderUseCaseDtoOut placeOrder(@Valid PlaceOrderUseCaseDtoIn placeOrderDto) throws EntityManagementException;
 
     @Data
     class PlaceOrderUseCaseDtoIn {

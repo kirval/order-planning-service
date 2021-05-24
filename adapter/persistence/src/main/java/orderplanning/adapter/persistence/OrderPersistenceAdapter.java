@@ -1,11 +1,12 @@
 package orderplanning.adapter.persistence;
 
 import lombok.RequiredArgsConstructor;
-import orderplanning.application.port.out.OrderPersistencePort;
+import orderplanning.application.port.output.OrderPersistencePort;
+import orderplanning.common.PersistenceAdapter;
+import orderplanning.common.exception.PersistenceException;
 import orderplanning.domain.Order;
-import org.springframework.stereotype.Component;
 
-@Component
+@PersistenceAdapter
 @RequiredArgsConstructor
 class OrderPersistenceAdapter implements OrderPersistencePort {
 
@@ -13,9 +14,13 @@ class OrderPersistenceAdapter implements OrderPersistencePort {
     private final OrderJpaMapper mapper;
 
     @Override
-    public Order persistOrder(Order order, Long customerId, Long warehouseId) {
-        return mapper.jpaEntityToDomainEntity(
-                repository.save(mapper.domainEntityToJpaEntity(order, customerId, warehouseId))
-        );
+    public Order persistOrder(Order order, Long customerId, Long warehouseId) throws PersistenceException {
+        try {
+            return mapper.jpaEntityToDomainEntity(
+                    repository.save(mapper.domainEntityToJpaEntity(order, customerId, warehouseId))
+            );
+        } catch (Exception e) {
+            throw new PersistenceException("Failed to save Order. " + e.getMessage());
+        }
     }
 }

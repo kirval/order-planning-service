@@ -3,7 +3,8 @@ package orderplanning.adapter.web;
 import lombok.RequiredArgsConstructor;
 import orderplanning.adapter.web.dto.CustomerDtoIn;
 import orderplanning.adapter.web.dto.CustomerDtoOut;
-import orderplanning.application.port.in.AddNewCustomerUseCase;
+import orderplanning.application.port.input.AddNewCustomerUseCase;
+import orderplanning.common.WebAdapter;
 import orderplanning.domain.Customer;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
+@WebAdapter
 @RestController
 @RequestMapping("/api/customers")
 @RequiredArgsConstructor

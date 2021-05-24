@@ -35,7 +35,7 @@ CREATE TABLE warehouse_product
 CREATE SEQUENCE order_id_seq;
 CREATE TABLE orders
 (
-    id           INT NOT NULL,
+    id           INT        NOT NULL,
     customer_id  INT UNIQUE NOT NULL,
     product_id   INT        NOT NULL,
     warehouse_id INT,

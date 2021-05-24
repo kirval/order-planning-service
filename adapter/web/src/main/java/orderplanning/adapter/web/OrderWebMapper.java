@@ -2,8 +2,8 @@ package orderplanning.adapter.web;
 
 import orderplanning.adapter.web.dto.OrderDtoIn;
 import orderplanning.adapter.web.dto.OrderDtoOut;
-import orderplanning.application.port.in.PlaceOrderUseCase.PlaceOrderUseCaseDtoIn;
-import orderplanning.application.port.in.PlaceOrderUseCase.PlaceOrderUseCaseDtoOut;
+import orderplanning.application.port.input.PlaceOrderUseCase.PlaceOrderUseCaseDtoIn;
+import orderplanning.application.port.input.PlaceOrderUseCase.PlaceOrderUseCaseDtoOut;
 import org.mapstruct.Mapper;
 
 @Mapper

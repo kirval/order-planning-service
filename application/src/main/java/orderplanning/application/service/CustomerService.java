@@ -1,15 +1,16 @@
 package orderplanning.application.service;
 
 import lombok.RequiredArgsConstructor;
-import orderplanning.application.port.in.AddNewCustomerUseCase;
-import orderplanning.application.port.out.CustomerPersistencePort;
+import orderplanning.application.port.input.AddNewCustomerUseCase;
+import orderplanning.application.port.output.CustomerPersistencePort;
+import orderplanning.common.UseCase;
+import orderplanning.common.exception.EntityManagementException;
 import orderplanning.domain.Customer;
-import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
 
-@Service
+@UseCase
 @Validated
 @RequiredArgsConstructor
 class CustomerService implements AddNewCustomerUseCase {
@@ -18,11 +19,11 @@ class CustomerService implements AddNewCustomerUseCase {
     private final CustomerMapper customerMapper;
 
     @Override
-    public Customer addNewCustomer(@Valid AddNewCustomerUseCaseDto newCustomerDto) throws AddingCustomerException {
+    public Customer addNewCustomer(@Valid AddNewCustomerUseCaseDto newCustomerDto) throws EntityManagementException {
         try {
             return customerPersistencePort.persistCustomer(customerMapper.useCaseDtoToDomainEntity(newCustomerDto));
         } catch (Exception e) {
-            throw new AddingCustomerException("Failed to add customer. " + e.getMessage());
+            throw new EntityManagementException("Failed to add customer. " + e.getMessage());
         }
     }
 

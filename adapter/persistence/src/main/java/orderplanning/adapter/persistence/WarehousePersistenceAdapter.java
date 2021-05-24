@@ -1,13 +1,14 @@
 package orderplanning.adapter.persistence;
 
 import lombok.RequiredArgsConstructor;
-import orderplanning.application.port.out.WarehouseQueryPort;
+import orderplanning.application.port.output.WarehouseQueryPort;
+import orderplanning.common.PersistenceAdapter;
+import orderplanning.common.exception.QueryException;
 import orderplanning.domain.Warehouse;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Component
+@PersistenceAdapter
 @RequiredArgsConstructor
 class WarehousePersistenceAdapter implements WarehouseQueryPort {
 
@@ -15,10 +16,15 @@ class WarehousePersistenceAdapter implements WarehouseQueryPort {
     private final WarehouseJpaMapper mapper;
 
     @Override
-    public List<Warehouse> findWarehousesContainingProduct(Long productId) {
-        return mapper.jpaEntityToDomainEntityPlain(
-                repository.findAll(WarehouseJpaSpecifications.findByContainingProduct(productId))
-        );
+    public List<Warehouse> findWarehousesContainingProduct(Long productId) throws QueryException {
+        try {
+            return mapper.jpaEntityToDomainEntityPlain(
+                    repository.findAll(WarehouseJpaSpecifications.findByContainingProduct(productId))
+            );
+        } catch (Exception e) {
+            throw new QueryException(
+                    String.format("Failed find Warehouses with Product id = {%s} " + e.getMessage(), productId));
+        }
     }
 
 }

@@ -1,6 +1,6 @@
 package orderplanning.application.service;
 
-import orderplanning.application.port.in.PlaceOrderUseCase.PlaceOrderUseCaseDtoOut;
+import orderplanning.application.port.input.PlaceOrderUseCase.PlaceOrderUseCaseDtoOut;
 import orderplanning.domain.Order;
 import orderplanning.domain.Warehouse;
 import org.mapstruct.Mapper;

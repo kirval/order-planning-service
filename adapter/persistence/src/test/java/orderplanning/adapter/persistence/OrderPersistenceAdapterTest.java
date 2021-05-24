@@ -28,7 +28,12 @@ class OrderPersistenceAdapterTest {
         Long productId = 1L;
         Order orderToSave = new Order()
                 .setProduct(new Product().setId(productId));
-        Order savedOrder = orderPersistenceAdapter.persistOrder(orderToSave, customerId, warehouseId);
+        Order savedOrder = null;
+        try {
+            savedOrder = orderPersistenceAdapter.persistOrder(orderToSave, customerId, warehouseId);
+        } catch (orderplanning.common.exception.PersistenceException e) {
+            e.printStackTrace();
+        }
 
         assertThat(savedOrder.getId()).isNotNull();
         OrderJpaEntity orderJpa = orderJpaRepository.findById(savedOrder.getId()).get();

@@ -1,4 +1,7 @@
 dependencies {
+    implementation project(":common")
+
+    implementation("org.javatuples:javatuples:1.2");
 }
 
 
